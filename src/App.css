@@ -1,18 +1,117 @@
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Cinzel', serif;
+  background-color: #1b1f27;
+  color: #f5f3e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto; /* Allow scrolling if needed */
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
-  font-family: 'Arial', sans-serif;
+  width: 100%;
+  max-width: 700px;
+  background-color: #2c2f38;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  margin: 20px;
 }
 
-button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
+/* Title */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #fddb3a;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
+/* Subtitle */
 h2 {
+  margin: 10px 0;
+  font-size: 1.8rem;
+  color: #ffe6a7;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Paragraphs */
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+/* Adventure Log Styling */
+.adventure-log {
   margin-top: 20px;
 }
 
-p {
-  font-size: 18px;
+.adventure-log p {
+  background-color: #383d47;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-style: italic;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Buttons */
+button {
+  background-color: #5e60ce;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #7400b8;
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Adventure Complete Section */
+.adventure-complete {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #4a4e69;
+  border-radius: 8px;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .App {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
 }

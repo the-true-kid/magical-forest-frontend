@@ -6,21 +6,21 @@ const App = () => {
   const [character, setCharacter] = useState('');
   const [scenario, setScenario] = useState('');
   const [scene, setScene] = useState('');
+  const [optionA, setOptionA] = useState('');
+  const [optionB, setOptionB] = useState('');
   const [finalMessage, setFinalMessage] = useState('');
   const [adventureLog, setAdventureLog] = useState([]);
 
   const startAdventure = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/start', {
-        character,
-      });
-
-      const { message, firstScene } = response.data;
-      console.log('Start response:', response.data);
+      const response = await axios.post('http://localhost:3001/start', { character });
+      const { message, scene, optionA, optionB } = response.data;
 
       setScenario(message);
-      setScene(firstScene);
-      setAdventureLog([message, firstScene]);
+      setScene(scene);
+      setOptionA(optionA);
+      setOptionB(optionB);
+      setAdventureLog([message, scene]);
     } catch (error) {
       console.error('Error starting adventure:', error);
     }
@@ -29,14 +29,19 @@ const App = () => {
   const makeChoice = async (choice) => {
     try {
       const response = await axios.post('http://localhost:3001/adventure', { choice });
-      console.log('Choice response:', response.data);
-
-      const { scene, finalMessage } = response.data;
+      const { scene, optionA, optionB, finalMessage } = response.data;
 
       setScene(scene);
       setAdventureLog((prev) => [...prev, scene]);
 
-      if (finalMessage) setFinalMessage(finalMessage);
+      if (finalMessage) {
+        setFinalMessage(finalMessage);
+        setOptionA('');
+        setOptionB('');
+      } else {
+        setOptionA(optionA);
+        setOptionB(optionB);
+      }
     } catch (error) {
       console.error('Error making choice:', error);
     }
@@ -65,15 +70,13 @@ const App = () => {
           <h2>{scenario}</h2>
           <p>{scene}</p>
 
-          {!finalMessage && (
+          {!finalMessage ? (
             <div>
-              <button onClick={() => makeChoice('A')}>Option A</button>
-              <button onClick={() => makeChoice('B')}>Option B</button>
+              {optionA && <button onClick={() => makeChoice('A')}>{optionA}</button>}
+              {optionB && <button onClick={() => makeChoice('B')}>{optionB}</button>}
             </div>
-          )}
-
-          {finalMessage && (
-            <div>
+          ) : (
+            <div className="adventure-complete">
               <h2>Adventure Complete!</h2>
               <p>{finalMessage}</p>
             </div>
@@ -81,7 +84,7 @@ const App = () => {
         </div>
       )}
 
-      <div>
+      <div className="adventure-log">
         <h2>Adventure Log</h2>
         {adventureLog.map((log, index) => (
           <p key={index}>{log}</p>
